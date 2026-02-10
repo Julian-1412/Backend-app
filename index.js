@@ -1,5 +1,7 @@
+import 'dotenvg/config';
 import express from 'express';
 import mongoose from 'mongoose';
+
 
 
 const app = express();
@@ -16,10 +18,11 @@ const userSchema= new mongoose.Schema(
 
     const user= mongoose.model('user', userSchema, 'users');
 
-    const dbname= "test"
     
 
-const mongoUri = `mongodb+srv://julianseg1412_db_user:prueba123456@julian.bqkyjeu.mongodb.net/${dbname}?retryWrites=true&w=majority`;
+const mongoUri = process.env.MONGODB_URI 
+const PORT = process.env.PORT || 3000
+
 mongoose.connect(mongoUri)
     .then(() => console.log(" Conexión exitosa a MongoDB"))
     .catch(err => console.error(" Error:", err));
@@ -74,9 +77,11 @@ mongoose.connect(mongoUri)
         }
     })
 
-    app.listen(3000, () => {
-    console.log(" Servidor corriendo en http://localhost:3000")});
+app.listen(PORT, () => {
+    console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+});
 
+export default app;
     //adding a new line to test the commit and push process
     //adding another line to test the commit and push process in the feature new/space
     //adding another line to test the commit and push process in the feature new/space and check the merge pull request
